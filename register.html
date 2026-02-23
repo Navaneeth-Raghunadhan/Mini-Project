@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth card">
+    <h2>Create an Account</h2>
+    <form method="POST" class="form-grid">
+        <label>Username
+            <input type="text" name="username" required />
+        </label>
+        <label>Email
+            <input type="email" name="email" required />
+        </label>
+        <label>Password
+            <input type="password" name="password" required />
+        </label>
+        <button type="submit" class="btn">Register</button>
+    </form>
+</section>
+{% endblock %}

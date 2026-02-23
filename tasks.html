@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="card">
+    <h2>Task Manager</h2>
+    <form method="POST" action="{{ url_for('add_task') }}" class="task-form">
+        <input type="text" name="title" placeholder="Task title" required />
+        <input type="text" name="subject" placeholder="Subject" required />
+        <input type="date" name="deadline" min="{{ today }}" required />
+        <button type="submit" class="btn">Add Task</button>
+    </form>
+</section>
+
+<section class="task-grid">
+    {% for task in tasks %}
+    <article class="card">
+        <h3>{{ task.title }}</h3>
+        <p><strong>Subject:</strong> {{ task.subject }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <p>
+            <strong>Status:</strong>
+            <span class="badge {{ task.status }}">{{ task.status }}</span>
+        </p>
+
+        <div class="action-row">
+            <form method="POST" action="{{ url_for('toggle_task', task_id=task.id) }}">
+                <button type="submit" class="btn small secondary">Toggle Complete</button>
+            </form>
+
+            <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}">
+                <button type="submit" class="btn small danger">Delete</button>
+            </form>
+        </div>
+
+        <details>
+            <summary>Edit task</summary>
+            <form method="POST" action="{{ url_for('edit_task', task_id=task.id) }}" class="form-grid">
+                <input type="text" name="title" value="{{ task.title }}" required />
+                <input type="text" name="subject" value="{{ task.subject }}" required />
+                <input type="date" name="deadline" value="{{ task.deadline }}" required />
+                <button type="submit" class="btn small">Save changes</button>
+            </form>
+        </details>
+    </article>
+    {% else %}
+    <article class="card">
+        <p>No tasks yet. Add your first study task above.</p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

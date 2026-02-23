@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero card">
+    <h2>Plan Better. Study Smarter.</h2>
+    <p>
+        FocusFlow is your simple study planner. Track tasks, set deadlines,
+        and stay on top of your daily progress.
+    </p>
+    <div class="hero-actions">
+        <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+        <a href="{{ url_for('login') }}" class="btn secondary">I already have an account</a>
+    </div>
+</section>
+{% endblock %}

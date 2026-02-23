@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="page-title">Welcome, {{ session.get('username') }} 👋</h2>
+
+<section class="stats-grid">
+    <article class="card stat">
+        <h3>Total Tasks</h3>
+        <p>{{ total_tasks }}</p>
+    </article>
+    <article class="card stat">
+        <h3>Completed</h3>
+        <p>{{ completed_tasks }}</p>
+    </article>
+    <article class="card stat">
+        <h3>Pending</h3>
+        <p>{{ pending_tasks }}</p>
+    </article>
+    <article class="card stat">
+        <h3>Progress</h3>
+        <p>{{ progress_percent }}%</p>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress_percent }}">
+            <div class="progress-fill" data-progress="{{ progress_percent }}"></div>
+        </div>
+    </article>
+</section>
+
+<section class="two-col">
+    <article class="card">
+        <h3>Today's Tasks ({{ today }})</h3>
+        {% if todays_tasks %}
+            <ul class="task-list">
+                {% for task in todays_tasks %}
+                    <li>
+                        <strong>{{ task.title }}</strong>
+                        <span>{{ task.subject }}</span>
+                        <span class="badge {{ task.status }}">{{ task.status }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No tasks due today.</p>
+        {% endif %}
+    </article>
+
+    <article class="card">
+        <h3>Upcoming Deadlines</h3>
+        {% if upcoming_tasks %}
+            <ul class="task-list">
+                {% for task in upcoming_tasks %}
+                    <li>
+                        <strong>{{ task.title }}</strong>
+                        <span>{{ task.subject }}</span>
+                        <span>{{ task.deadline }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No upcoming deadlines yet.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}
